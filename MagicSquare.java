@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
@@ -8,6 +10,7 @@ public class MagicSquare implements MagicSquareInterface {
     private String fileName;
     private int[][] magicSquare;
     private int magicNumber;
+    private boolean isMagicSquare;
 
     public MagicSquare(String fileName) {
         this.fileName = fileName;
@@ -35,13 +38,13 @@ public class MagicSquare implements MagicSquareInterface {
         this.magicNumber = (int) ((dimension * (Math.pow((double) dimension, 2.0) + 1)) / 2);
         this.magicSquare = new int[dimension][dimension];
 
-        int row = dimension-1;
-        int col = (int)(dimension/2);
+        int row = dimension - 1;
+        int col = (int) (dimension / 2);
 
         int oldRow;
         int oldCol;
 
-        for (int i = 1; i < Math.pow((int)dimension, 2.0);i++){
+        for (int i = 1; i < Math.pow((int) dimension, 2.0); i++) {
             magicSquare[row][col] = i;
 
             oldRow = row;
@@ -50,22 +53,27 @@ public class MagicSquare implements MagicSquareInterface {
             row++;
             col++;
 
-            if (row == dimension){
+            if (row == dimension) {
                 row = 0;
             }
-            if(col == dimension){
+            if (col == dimension) {
                 col = 0;
             }
+            if (magicSquare[row][col] != 0) {
+                row = oldRow;
+                col = oldCol;
+                row--;
+            }
 
-            
         }
+
+        writeMatrix(magicSquare, fileName);
     }
 
     private int[][] readMatrix(String filename) {
         File squareFile = new File(filename);
         int[][] magicsquare = new int[dimension][dimension];
         int row = 0;
-
 
         try {
             Scanner fileScan = new Scanner(squareFile);
@@ -90,12 +98,39 @@ public class MagicSquare implements MagicSquareInterface {
         return magicsquare;
     }
 
-    private void writeMatrix(int[][] matrix, String filename){
-        
-        try{
-        PrintWriter pw = new PrintWriter(new File(filename));
+    private void writeMatrix(int[][] matrix, String filename) {
 
+        try {
+            File file = new File(filename);
+            PrintWriter pw = new PrintWriter(new FileWriter(file));
+            for (int i = 0; i < dimension; i++) {
+                pw.println();
+                for (int j = 0; j < dimension; j++) {
+                    String value = String.valueOf(magicSquare[i][j]);
+                    pw.print(value);
+                }
+            }
+            pw.close();
+
+        } catch (IOException e) {
+            System.out.println("IOException");
         }
 
     }
+
+    public boolean isMagicSquare() {
+        boolean magicB = true;
+        
+}
+    }
+
+    public int[][] getMatrix() {
+        int[][] returnMatrix = magicSquare;
+        return returnMatrix;
+    }
+
+    public String toString() {
+
+    }
+
 }

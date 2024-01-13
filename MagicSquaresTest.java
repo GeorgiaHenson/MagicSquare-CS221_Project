@@ -1,11 +1,10 @@
-
 import java.io.FileNotFoundException;
 
 /**
  * Console app to test MagicSquare class
  * @author mvail
  */
-public class MagicSquareTester {
+public class MagicSquaresTest {
 	private int passes = 0;
 	private int failures = 0;
 	private int total = 0;
@@ -432,4 +431,3 @@ public class MagicSquareTester {
 		}
 	}
 }
-
