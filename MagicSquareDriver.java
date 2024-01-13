@@ -1,12 +1,12 @@
 public class MagicSquareDriver{
     
-    private int dimension;
+    
 
 
 
 
 
     public static void main(String[] args){
-        System.out.println("Hello world");
+       //Command comes in through String args- validation for commands - switch statement to check first choice - 
     }
 }
