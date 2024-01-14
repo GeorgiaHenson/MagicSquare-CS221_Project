@@ -18,10 +18,7 @@ public class MagicSquare implements MagicSquareInterface {
         try {
             int dimension = 0;
             Scanner fileScan = new Scanner(scanFile);
-            while (fileScan.hasNextLine()) {
-                dimension++;
-            }
-            this.dimension = dimension;
+            this.dimension = Integer.parseInt(fileScan.nextLine());
             int[][] magicSquare = readMatrix(fileName);
             this.magicSquare = magicSquare;
             this.magicNumber = (int) ((dimension * (Math.pow((double) dimension, 2.0) + 1)) / 2);
@@ -77,6 +74,7 @@ public class MagicSquare implements MagicSquareInterface {
 
         try {
             Scanner fileScan = new Scanner(squareFile);
+            dimension = Integer.parseInt(fileScan.nextLine());
             while (fileScan.hasNextLine()) {
                 int col = 0;
                 String line = fileScan.nextLine();
@@ -118,19 +116,76 @@ public class MagicSquare implements MagicSquareInterface {
 
     }
 
+    @Override
     public boolean isMagicSquare() {
-        boolean magicB = true;
-        
-}
+        boolean isMagicSquare = true;
+        int[][] copyMagic = magicSquare;
+
+        magicNumber = dimension * dimension;
+
+        for (int i = 0; i < dimension; i++) {
+            int test = 0;
+            int test2 = 0;
+            for (int j = 0; j < dimension; j++) {
+                test += magicSquare[i][j];
+                test2 += magicSquare[j][i];
+            }
+            if (test != magicNumber && test2 == magicNumber) {
+                isMagicSquare = false;
+            }
+
+        }
+
+        int testRight = 0;
+
+        for (int i = 0; i < dimension; i++) {
+            testRight += magicSquare[i][i];
+
+        }
+        if (testRight != magicNumber) {
+            isMagicSquare = false;
+        }
+
+        int testLeft = 0;
+
+        for (int i = dimension; i > 0; i--) {
+            testLeft += magicSquare[i][i];
+
+        }
+        if (testLeft != magicNumber) {
+            isMagicSquare = false;
+        }
+
+        return isMagicSquare;
+
     }
 
+    @Override
     public int[][] getMatrix() {
-        int[][] returnMatrix = magicSquare;
-        return returnMatrix;
+       int[][] returnMatrix = magicSquare;
+       return returnMatrix;
     }
 
-    public String toString() {
 
+    public String toString(){
+        String returnString = "";
+        returnString += "The Matrix";
+
+        for(int i = 0; i < dimension; i++){
+            for(int j = 0; j < dimension; j++){
+                returnString += magicSquare[i][j];
+            }
+            returnString += "\n";
+        }
+
+        if(this.isMagicSquare()){
+            returnString += "\nis a magic square";
+        }
+        else{
+            returnString += "\nis not a magic square";
+        }
+
+        return returnString;
     }
 
 }
