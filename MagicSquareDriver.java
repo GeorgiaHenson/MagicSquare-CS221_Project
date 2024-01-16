@@ -1,7 +1,9 @@
+import java.io.FileNotFoundException;
+
 public class MagicSquareDriver{
     
     
-     public static void main(String[] args){
+     public static void main(String[] args) throws FileNotFoundException {
        switch(args[0]){
             case "-create":
                 if(Integer.parseInt(args[2]) %2 != 0){

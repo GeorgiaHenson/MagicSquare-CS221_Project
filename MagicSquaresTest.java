@@ -361,7 +361,7 @@ public class MagicSquaresTest {
 			MagicSquareInterface ms = new MagicSquare(testFile);
 			System.out.println("noSuchFileTest: FileNotFoundException expected");
 			success = false;
-		} catch (FileNotFoundException e) {
+} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		} catch (Exception e) {	//We expect a specific exception
 			System.out.println("noSuchFileTest: FileNotFoundException expected");
