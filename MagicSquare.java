@@ -6,6 +6,11 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class MagicSquare implements MagicSquareInterface {
+
+
+    /**
+     * 
+     */
     private int dimension;
     private String fileName;
     private int[][] magicSquare;
@@ -66,7 +71,6 @@ public class MagicSquare implements MagicSquareInterface {
 
         int row = 0;
 
-        // try {
         Scanner fileScan = new Scanner(squareFile);
         dimension = Integer.parseInt(fileScan.nextLine());
         magicSquare = new int[dimension][dimension];
@@ -84,10 +88,8 @@ public class MagicSquare implements MagicSquareInterface {
             row++;
         }
         fileScan.close();
-        // } catch (FileNotFoundException e) {
-        // System.out.println("FileNotFound");
+    
 
-        // }
         return magicSquare;
     }
 
@@ -150,7 +152,7 @@ public class MagicSquare implements MagicSquareInterface {
         for (int i = 0; i <= (dimension * dimension); i++) {
             dimenCount += i;
         }
-        System.out.println(dimenCount);
+        
 
         int counter = 0;
         for (int i = 0; i < dimension; i++) {
@@ -158,7 +160,7 @@ public class MagicSquare implements MagicSquareInterface {
                 counter += magicSquare[i][j];
             }
         }
-        System.out.println(counter);
+        
         if (!(dimenCount == counter)) {
             isMagicSquare = false;
         }
@@ -182,7 +184,7 @@ public class MagicSquare implements MagicSquareInterface {
             for (int j = 0; j < dimension; j++) {
                 returnMatrix[i][j] = magicSquare[i][j];
             }
-        
+
         }
         return returnMatrix;
     }
