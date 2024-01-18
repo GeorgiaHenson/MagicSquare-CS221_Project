@@ -11,126 +11,115 @@ public class MagicSquare implements MagicSquareInterface {
     private int[][] magicSquare;
     private int magicNumber;
     private boolean isMagicSquare;
-    
 
     public MagicSquare(String fileName) throws FileNotFoundException {
         this.fileName = fileName;
         int[][] magicSquare = readMatrix(fileName);
         this.magicSquare = magicSquare;
         this.magicNumber = (int) ((dimension * (Math.pow((double) dimension, 2.0) + 1)) / 2);
-       
-
 
     }
 
-    public MagicSquare(String filename, int dimension) {
-       
-       if(dimension %2 == 1){
-        this.dimension = dimension;
-        this.fileName = filename;
-        this.magicNumber = (int) ((dimension * (Math.pow((double) dimension, 2.0) + 1)) / 2);
-        this.magicSquare = new int[dimension][dimension];
+    public MagicSquare(String filename, int dimension) throws IOException {
 
+        if (dimension % 2 == 1) {
+            this.dimension = dimension;
+            this.fileName = filename;
+            this.magicNumber = (int) ((dimension * (Math.pow((double) dimension, 2.0) + 1)) / 2);
+            this.magicSquare = new int[dimension][dimension];
 
-        int row = dimension - 1;
-        int col = (int) (dimension / 2);
+            int row = dimension - 1;
+            int col = dimension / 2;
 
-        int oldRow;
-        int oldCol;
+            int oldRow;
+            int oldCol;
 
-        for (int i = 1; i < Math.pow((int) dimension, 2.0); i++) {
-            magicSquare[row][col] = i;
+            for (int i = 1; i <= (dimension * dimension); i++) {
+                magicSquare[row][col] = i;
 
-            oldRow = row;
-            oldCol = col;
+                oldRow = row;
+                oldCol = col;
 
-            row++;
-            col++;
+                row++;
+                col++;
 
-            if (row == dimension) {
-                row = 0;
+                if (row == dimension) {
+                    row = 0;
+                }
+                if (col == dimension) {
+                    col = 0;
+                }
+                if (magicSquare[row][col] != 0) {
+                    row = oldRow;
+                    col = oldCol;
+                    row--;
+                }
+
             }
-            if (col == dimension) {
-                col = 0;
-            }
-            if (magicSquare[row][col] != 0) {
-                row = oldRow;
-                col = oldCol;
-                row--;
-            }
-
+            writeMatrix(magicSquare, fileName);
         }
-        writeMatrix(magicSquare, fileName);
-    }
-    
-        
+
     }
 
     private int[][] readMatrix(String filename) throws FileNotFoundException {
         File squareFile = new File(filename);
-        
+
         int row = 0;
 
         // try {
-            Scanner fileScan = new Scanner(squareFile);
-            dimension = Integer.parseInt(fileScan.nextLine());
-            magicSquare = new int[dimension][dimension];
-            while (fileScan.hasNextLine()) {
-                int col = 0;
-                String line = fileScan.nextLine();
-                Scanner lineScan = new Scanner(line);
-                
-                while (lineScan.hasNext()) {
-                    magicSquare[row][col] = Integer.parseInt(lineScan.next());
-                    col++;
+        Scanner fileScan = new Scanner(squareFile);
+        dimension = Integer.parseInt(fileScan.nextLine());
+        magicSquare = new int[dimension][dimension];
+        while (fileScan.hasNextLine()) {
+            int col = 0;
+            String line = fileScan.nextLine();
+            Scanner lineScan = new Scanner(line);
 
-                }
-                lineScan.close();
-                row++;
+            while (lineScan.hasNext()) {
+                magicSquare[row][col] = Integer.parseInt(lineScan.next());
+                col++;
+
             }
-            fileScan.close();
+            lineScan.close();
+            row++;
+        }
+        fileScan.close();
         // } catch (FileNotFoundException e) {
-        //     System.out.println("FileNotFound");
+        // System.out.println("FileNotFound");
 
         // }
         return magicSquare;
     }
 
-    private void writeMatrix(int[][] matrix, String filename) {
+    private void writeMatrix(int[][] matrix, String filename) throws IOException {
 
-        try {
-            File file = new File(filename);
-            PrintWriter pw = new PrintWriter(new FileWriter(file));
-            pw.println(dimension);
-            for (int i = 0; i < dimension; i++) {
-                pw.println();
-                for (int j = 0; j < dimension; j++) {
-                    String value = String.valueOf(magicSquare[i][j]);
-                    pw.print(value);
-                }
+        File file = new File(filename);
+        PrintWriter pw = new PrintWriter(new FileWriter(file));
+        pw.print(dimension);
+        for (int i = 0; i < dimension; i++) {
+            pw.println();
+            for (int j = 0; j < dimension; j++) {
+                int value = magicSquare[i][j];
+                pw.print(value);
+                pw.print(" ");
             }
-            pw.close();
-
-        } catch (IOException e) {
-            System.out.println("IOException");
         }
+        pw.close();
 
     }
 
     @Override
     public boolean isMagicSquare() {
         this.isMagicSquare = true;
-        
-        
 
         for (int i = 0; i < dimension; i++) {
             int test = 0;
-            int test2 = 0;
+
             for (int j = 0; j < dimension; j++) {
                 test += magicSquare[i][j];
-                test2 += magicSquare[j][i];
+
             }
-            if (test != magicNumber && test2 == magicNumber) {
+            if (test != magicNumber) {
                 isMagicSquare = false;
             }
 
@@ -148,62 +137,75 @@ public class MagicSquare implements MagicSquareInterface {
 
         int testLeft = 0;
 
-        for (int i = dimension-1; i > 0; i--) {
+        for (int i = dimension - 1; i >= 0; i--) {
             testLeft += magicSquare[i][i];
 
         }
+
         if (testLeft != magicNumber) {
             isMagicSquare = false;
         }
 
         int dimenCount = 0;
-        for(int i = 0; i < (dimension*dimension); i++){
-            dimenCount+= i;
+        for (int i = 0; i <= (dimension * dimension); i++) {
+            dimenCount += i;
         }
+        System.out.println(dimenCount);
 
         int counter = 0;
-        for(int i = 0; i < dimension; i++){
-            for(int j = 0; j < dimension; j++){
-                counter+= magicSquare[i][j];
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                counter += magicSquare[i][j];
             }
         }
-
-        if(!(dimenCount == counter)){
+        System.out.println(counter);
+        if (!(dimenCount == counter)) {
             isMagicSquare = false;
         }
 
-        
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 1; j < dimension; j++) {
+                if (magicSquare[i][j] == magicSquare[i][j - 1]) {
+                    isMagicSquare = false;
+                }
+            }
+        }
+
         return isMagicSquare;
 
     }
 
     @Override
     public int[][] getMatrix() {
-       int[][] returnMatrix = magicSquare;
-       return returnMatrix;
+        int[][] returnMatrix = new int[dimension][dimension];
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                returnMatrix[i][j] = magicSquare[i][j];
+            }
+        
+        }
+        return returnMatrix;
     }
 
-
-    public String toString(){
+    public String toString() {
         String returnString = "";
         returnString += "The Matrix\n";
 
-        for(int i = 0; i < dimension; i++){
-            for(int j = 0; j < dimension; j++){
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
                 returnString += String.valueOf(magicSquare[i][j]);
                 returnString += " ";
             }
             returnString += "\n";
         }
 
-        if(this.isMagicSquare()){
+        if (this.isMagicSquare()) {
             returnString += "\nis a magic square";
-        }
-        else{
+        } else {
             returnString += "\nis not a magic square";
         }
-        
-        returnString += "\n" +magicNumber;
+
+        returnString += "\n" + magicNumber;
 
         return returnString;
     }
