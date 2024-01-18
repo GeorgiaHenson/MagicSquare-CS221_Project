@@ -7,16 +7,17 @@ import java.util.Scanner;
 
 public class MagicSquare implements MagicSquareInterface {
 
-
-    /**
-     * 
-     */
     private int dimension;
     private String fileName;
     private int[][] magicSquare;
     private int magicNumber;
     private boolean isMagicSquare;
 
+    /**
+     * 
+     * @param fileName name of the file to be read
+     * @throws FileNotFoundException
+     */
     public MagicSquare(String fileName) throws FileNotFoundException {
         this.fileName = fileName;
         int[][] magicSquare = readMatrix(fileName);
@@ -24,6 +25,13 @@ public class MagicSquare implements MagicSquareInterface {
         this.magicNumber = (int) ((dimension * (Math.pow((double) dimension, 2.0) + 1)) / 2);
 
     }
+
+    /**
+     * 
+     * @param filename  name of file to be created
+     * @param dimension size of the MagicSquare
+     * @throws IOException
+     */
 
     public MagicSquare(String filename, int dimension) throws IOException {
 
@@ -88,7 +96,6 @@ public class MagicSquare implements MagicSquareInterface {
             row++;
         }
         fileScan.close();
-    
 
         return magicSquare;
     }
@@ -152,7 +159,6 @@ public class MagicSquare implements MagicSquareInterface {
         for (int i = 0; i <= (dimension * dimension); i++) {
             dimenCount += i;
         }
-        
 
         int counter = 0;
         for (int i = 0; i < dimension; i++) {
@@ -160,7 +166,7 @@ public class MagicSquare implements MagicSquareInterface {
                 counter += magicSquare[i][j];
             }
         }
-        
+
         if (!(dimenCount == counter)) {
             isMagicSquare = false;
         }

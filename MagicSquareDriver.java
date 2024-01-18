@@ -1,32 +1,31 @@
 import java.io.IOException;
 
 import java.util.Scanner;
-public class MagicSquareDriver{
-    
-    
-     public static void main(String[] args) throws NumberFormatException, IOException {
-      if(args.length > 0){
-        switch(args[0]){
-            case "-create":
-               
-                MagicSquare newSquare = new MagicSquare(args[1],Integer.parseInt(args[2]));
-                System.out.println(newSquare);
 
-               
-                break;
+public class MagicSquareDriver {
 
-            case "-check":
-                MagicSquare newMgSquare = new MagicSquare(args[1]);
-                System.out.println(newMgSquare);
-                break;
+    public static void main(String[] args) throws NumberFormatException, IOException {
+        if (args.length > 0) {
+            switch (args[0]) {
+                case "-create":
 
-            default:
-            System.out.println("Wrong order of commands");
-             break;
-            
-                   }
-                System.out.println("Goodbye");            
+                    MagicSquare newSquare = new MagicSquare(args[1], Integer.parseInt(args[2]));
+                    System.out.println(newSquare);
 
+                    break;
+
+                case "-check":
+                    MagicSquare newMgSquare = new MagicSquare(args[1]);
+                    System.out.println(newMgSquare);
+                    break;
+
+                default:
+                    System.out.println("Wrong order of commands");
+                    break;
+
+            }
+            System.out.println("Goodbye");
+
+        }
     }
-}
 }
