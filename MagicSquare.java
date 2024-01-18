@@ -74,6 +74,8 @@ public class MagicSquare implements MagicSquareInterface {
 
     }
 
+    //Reads file given by the filename parameter and stores the contents in a new array, then returns the array
+
     private int[][] readMatrix(String filename) throws FileNotFoundException {
         File squareFile = new File(filename);
 
@@ -100,6 +102,8 @@ public class MagicSquare implements MagicSquareInterface {
         return magicSquare;
     }
 
+    //Takes in a 2d array matrix and a new filename, then creates a file using the contents of the array
+
     private void writeMatrix(int[][] matrix, String filename) throws IOException {
 
         File file = new File(filename);
@@ -117,7 +121,7 @@ public class MagicSquare implements MagicSquareInterface {
 
     }
 
-    @Override
+    // Determines if this MagicSquare object is a magicsquare
     public boolean isMagicSquare() {
         this.isMagicSquare = true;
 
@@ -183,7 +187,7 @@ public class MagicSquare implements MagicSquareInterface {
 
     }
 
-    @Override
+    //preserves encapsulation by copying the magicsquare into a new array, then returning that array
     public int[][] getMatrix() {
         int[][] returnMatrix = new int[dimension][dimension];
         for (int i = 0; i < dimension; i++) {
@@ -195,6 +199,7 @@ public class MagicSquare implements MagicSquareInterface {
         return returnMatrix;
     }
 
+    //prints the dimension, the entire array, and determines if the object is a magicsquare
     public String toString() {
         String returnString = "";
         returnString += "The Matrix\n";
