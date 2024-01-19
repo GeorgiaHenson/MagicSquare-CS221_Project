@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class MagicSquare implements MagicSquareInterface {
 
-    private int dimension;
+    
     private int[][] magicSquare;
     
    
@@ -21,7 +21,7 @@ public class MagicSquare implements MagicSquareInterface {
         
         int[][] magicSquare = readMatrix(fileName);
         this.magicSquare = magicSquare;
-        int magicNumber = (int) ((dimension * (Math.pow((double) dimension, 2.0) + 1)) / 2);
+       
 
     }
 
@@ -35,7 +35,7 @@ public class MagicSquare implements MagicSquareInterface {
     public MagicSquare(String filename, int dimension) throws IOException {
 
         if (dimension % 2 == 1) {
-            this.dimension = dimension;
+            
             
             int magicNumber = (int) ((dimension * (Math.pow((double) dimension, 2.0) + 1)) / 2);
             this.magicSquare = new int[dimension][dimension];
@@ -81,7 +81,7 @@ public class MagicSquare implements MagicSquareInterface {
         int row = 0;
 
         Scanner fileScan = new Scanner(squareFile);
-        dimension = Integer.parseInt(fileScan.nextLine());
+        int dimension = Integer.parseInt(fileScan.nextLine());
         magicSquare = new int[dimension][dimension];
         while (fileScan.hasNextLine()) {
             int col = 0;
@@ -104,7 +104,7 @@ public class MagicSquare implements MagicSquareInterface {
     //Takes in a 2d array matrix and a new filename, then creates a file using the contents of the array
 
     private void writeMatrix(int[][] matrix, String filename) throws IOException {
-
+        int dimension = matrix.length;
         File file = new File(filename);
         PrintWriter pw = new PrintWriter(new FileWriter(file));
         pw.print(dimension);
@@ -123,6 +123,7 @@ public class MagicSquare implements MagicSquareInterface {
     // Determines if this MagicSquare object is a magicsquare
     public boolean isMagicSquare() {
         boolean isMagicSquare = true;
+        int dimension = magicSquare.length;
         int magicNumber = (int) ((dimension * (Math.pow((double) dimension, 2.0) + 1)) / 2);
 
         for (int i = 0; i < dimension; i++) {
@@ -189,6 +190,7 @@ public class MagicSquare implements MagicSquareInterface {
 
     //preserves encapsulation by copying the magicsquare into a new array, then returning that array
     public int[][] getMatrix() {
+        int dimension = magicSquare.length;
         int[][] returnMatrix = new int[dimension][dimension];
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
@@ -204,8 +206,8 @@ public class MagicSquare implements MagicSquareInterface {
         String returnString = "";
         returnString += "The Matrix\n";
 
-        for (int i = 0; i < dimension; i++) {
-            for (int j = 0; j < dimension; j++) {
+        for (int i = 0; i < magicSquare.length; i++) {
+            for (int j = 0; j < magicSquare.length; j++) {
                 returnString += String.valueOf(magicSquare[i][j]);
                 returnString += " ";
             }
