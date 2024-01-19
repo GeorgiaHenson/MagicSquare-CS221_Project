@@ -8,10 +8,9 @@ import java.util.Scanner;
 public class MagicSquare implements MagicSquareInterface {
 
     private int dimension;
-    private String fileName;
     private int[][] magicSquare;
-    private int magicNumber;
-    private boolean isMagicSquare;
+    
+   
 
     /**
      * 
@@ -19,10 +18,10 @@ public class MagicSquare implements MagicSquareInterface {
      * @throws FileNotFoundException
      */
     public MagicSquare(String fileName) throws FileNotFoundException {
-        this.fileName = fileName;
+        
         int[][] magicSquare = readMatrix(fileName);
         this.magicSquare = magicSquare;
-        this.magicNumber = (int) ((dimension * (Math.pow((double) dimension, 2.0) + 1)) / 2);
+        int magicNumber = (int) ((dimension * (Math.pow((double) dimension, 2.0) + 1)) / 2);
 
     }
 
@@ -37,8 +36,8 @@ public class MagicSquare implements MagicSquareInterface {
 
         if (dimension % 2 == 1) {
             this.dimension = dimension;
-            this.fileName = filename;
-            this.magicNumber = (int) ((dimension * (Math.pow((double) dimension, 2.0) + 1)) / 2);
+            
+            int magicNumber = (int) ((dimension * (Math.pow((double) dimension, 2.0) + 1)) / 2);
             this.magicSquare = new int[dimension][dimension];
 
             int row = dimension - 1;
@@ -69,7 +68,7 @@ public class MagicSquare implements MagicSquareInterface {
                 }
 
             }
-            writeMatrix(magicSquare, fileName);
+            writeMatrix(magicSquare, filename);
         }
 
     }
@@ -123,7 +122,8 @@ public class MagicSquare implements MagicSquareInterface {
 
     // Determines if this MagicSquare object is a magicsquare
     public boolean isMagicSquare() {
-        this.isMagicSquare = true;
+        boolean isMagicSquare = true;
+        int magicNumber = (int) ((dimension * (Math.pow((double) dimension, 2.0) + 1)) / 2);
 
         for (int i = 0; i < dimension; i++) {
             int test = 0;
@@ -218,7 +218,7 @@ public class MagicSquare implements MagicSquareInterface {
             returnString += "\nis not a magic square";
         }
 
-        returnString += "\n" + magicNumber;
+        
 
         return returnString;
     }

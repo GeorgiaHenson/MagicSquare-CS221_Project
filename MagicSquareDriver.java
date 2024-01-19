@@ -4,6 +4,13 @@ import java.util.Scanner;
 
 public class MagicSquareDriver {
 
+    /**
+     * 
+     * @param args
+     * @throws NumberFormatException
+     * @throws IOException
+     * @author GeorgiaHenson
+     */
     public static void main(String[] args) throws NumberFormatException, IOException {
         if (args.length > 0) {
             switch (args[0]) {
